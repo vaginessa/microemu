@@ -53,9 +53,8 @@
             </plugin>
 
             <plugin>
-                <groupId>com.pyx4me</groupId>
+                <groupId>com.github.wvengen</groupId>
                 <artifactId>proguard-maven-plugin</artifactId>
-                <version>${pyx4meVersion}</version>
                 <executions>
                    <execution>
                        <phase>package</phase>
