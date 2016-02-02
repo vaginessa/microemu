@@ -156,6 +156,9 @@
                             <License>GNU Lesser General Public License (LGPL)</License>
                         </manifestEntries>
                     </archive>
+                    <options>
+                        <option>-dontwarn **</option>
+                    </options>
                 </configuration>
             </plugin>
 
