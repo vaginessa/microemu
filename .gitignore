@@ -2,3 +2,5 @@
 target/
 /microemulator/microemu-javase-applet/applet-debug-example.html
 /microemulator/microemu-javase-applet/applet-test-example.html
+/microemulator/microemu-android/bin/
+/microemulator/microemu-android/src/org/microemu/android/FW/R.java
