@@ -5,11 +5,13 @@
     
     <!-- IMPORTANT TO SET WITH VALID VALUES --> 
 
-    <property name="midlet.jad" value="../microemu-examples/microemu-demo/target/microemu-demo-3.0.0-SNAPSHOT-me.jad" /> 
+    <property name="midlet.jad" value="../microemu-examples/microemu-demo/target/microemu-demo-3.0.0-SNAPSHOT-me.jad" />
     <property name="midlet.package" value="SimpleDemo.apk" />
     
     <property name="sdk-folder" value="\java\android-sdk-windows" />
-	<property name="sdk-platform-folder" value="${sdk-folder}/platforms/android-4" />
+	<property name="sdk-platform-folder" value="${sdk-folder}/platforms/android-23" />
+    <property name="sdk-build-tools-version" value="23.0.2" />
+    <property name="java" value="java" />
     <property name="microemu-cldc.jar" value="../microemu-cldc/target/microemu-cldc-3.0.0-SNAPSHOT.jar" />
     <property name="microemu-midp.jar" value="../microemu-midp/target/microemu-midp-3.0.0-SNAPSHOT.jar" />
     <property name="microemu-javase.jar" value="../microemu-javase/target/microemu-javase-3.0.0-SNAPSHOT.jar" />
@@ -33,52 +35,30 @@
 
     <!-- Tools -->
     <property name="sdk-platform-tools" value="${sdk-folder}/platform-tools" />
+    <property name="sdk-build-tools" value="${sdk-folder}/build-tools/${sdk-build-tools-version}" />
 	
-	<condition property="aapt" value="${sdk-platform-tools}/aapt" else="${sdk-platform-folder}/tools/aapt">
+	<condition property="aapt" value="${sdk-build-tools}/aapt" else="${sdk-platform-folder}/tools/aapt">
 		<available file="${sdk-platform-tools}" type="dir" />
 	</condition>
 	
 	<condition property="adb" value="${sdk-platform-tools}/adb" else="${sdk-folder}/tools/adb">
 		<available file="${sdk-platform-tools}" type="dir" />
 	</condition>
-    
-	<condition property="dx" value="${sdk-platform-tools}/dx.bat">
-		<and>
-        	<os family="windows"/>
-			<available file="${sdk-platform-tools}" type="dir" />
-		</and>
+
+    <property name="dx" value="${sdk-build-tools}/dx.bat" />
+    <condition property="dx" value="${sdk-build-tools}/dx.bat">
+        <and>
+            <os family="windows"/>
+        </and>
     </condition>
-    <condition property="dx" value="${sdk-platform-folder}/tools/dx.bat">
-    	<and>
-        	<os family="windows"/>
-    		<not>
-    			<available file="${sdk-platform-tools}" type="dir" />
-    		</not>
-    	</and>
-    </condition>	
-    <condition property="dx" value="${sdk-platform-tools}/dx">
-    	<and>
-	    	<not>
-	        	<os family="windows"/>
-	    	</not>
-    		<available file="${sdk-platform-tools}" type="dir" />
-    	</and>
-    </condition>	
-    <condition property="dx" value="${sdk-platform-folder}/tools/dx">
-    	<and>
-	    	<not>
-	        	<os family="windows"/>
-	    	</not>
-    		<not>
-    			<available file="${sdk-platform-tools}" type="dir" />
-    		</not>
-    	</and>
-    </condition>	
-	
-	<condition property="apk-builder" value="${sdk-folder}/tools/apkbuilder.bat" else="${sdk-folder}/tools/apkbuilder" >
-        <os family="windows"/>
+    <condition property="dx" value="${sdk-build-tools}/dx">
+        <and>
+            <not>
+                <os family="windows"/>
+            </not>
+        </and>
     </condition>
-	
+
     <property name="android-jar" value="${sdk-platform-folder}/android.jar" />
 	
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
@@ -334,7 +314,10 @@
         <dirname property="out-package.dir" file="${out-package}"/>
         <basename property="intermediate-dex.base" file="${intermediate-dex}"/>
         <dirname property="intermediate-dex.dir" file="${intermediate-dex}"/>
-        <exec executable="${apk-builder}" failonerror="true">
+        <exec executable="${java}" failonerror="true">
+            <arg value="-classpath" />
+            <arg value="${sdk-folder}/tools/lib/sdklib.jar" />
+            <arg value="com.android.sdklib.build.ApkBuilderMain" />
             <arg value="${out-package.dir}/${out-package.base}" />
 <!--            <arg value="-u" /> -->
             <arg value="-z" />
