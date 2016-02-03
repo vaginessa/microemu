@@ -274,7 +274,7 @@
     &lt;uses-permission android:name="android.permission.INTERNET" /&gt; 
     &lt;uses-permission android:name="android.permission.VIBRATE" /&gt; 
     &lt;supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:anyDensity="true" /&gt;
-    &lt;uses-sdk android:minSdkVersion="4" android:targetSdkVersion="4" /&gt;
+    &lt;uses-sdk android:minSdkVersion="10" android:targetSdkVersion="23" /&gt;
     &lt;application android:label="@string/app_name" android:icon="@drawable/app_icon"&gt;
         &lt;activity 
                 android:name="org.microemu.android.MicroEmulator" 
